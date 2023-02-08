@@ -24,3 +24,47 @@ export default function Login(){
     )
 }
 ```
+
+## Memorization
+*  Helpful for performance optimization
+*  Works like a cache storage and stops re-rendering
+
+### React.memo
+```javascript
+// Parent.jsx
+import React,{useState} from 'react';
+import Child from './Child';
+import '../App.css'
+
+const Parent=()=>{
+    const [counter,setCounter]=useState(0)
+    const updateCounter=()=>{
+        setCounter(counter+1)
+    }
+    return(
+        <div className="App">
+            <h2> Parent Component : {counter} </h2>
+            <button onClick={updateCounter}> Update counter value </button>
+            <Child />
+        </div>
+    )
+}
+
+export default Parent;
+
+
+// Child
+import React,{memo} from 'react'
+const Child=({number,changeNumber})=>{
+
+    console.log("child")
+    return(
+        <>
+            <h2> Child : {number} </h2>
+        </>
+    )
+}
+
+export default memo(Child);
+
+```
