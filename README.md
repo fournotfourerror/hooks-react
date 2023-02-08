@@ -68,3 +68,52 @@ const Child=({number,changeNumber})=>{
 export default memo(Child);
 
 ```
+
+### useCallback
+```javascript
+// Parent.jsx
+import React,{useCallback, useState} from 'react';
+import Child from './Child';
+import '../App.css'
+
+const Parent=()=>{
+    const [counter,setCounter]=useState(0)
+    const [inputValue,setInputValue]=useState("")
+    const updateCounter=useCallback(()=>{
+        setCounter(counter+1)
+    },[counter])
+
+    const updateInputValue=(e)=>{
+        setInputValue(e.target.value)
+    }
+    return(
+        <div className="App">
+            <h2> Parent Component : {counter} </h2>
+            <input type="text" value={inputValue} onChange={updateInputValue}/>
+            <button onClick={updateCounter}> Update counter value </button>
+            <Child counter={counter} changeNumber={updateCounter}/>
+        </div>
+    )
+}
+
+export default Parent;
+
+//Child.jsx
+import React,{memo} from 'react'
+const Child=({counter,changeNumber})=>{
+
+    console.log("child")
+    return(
+        <>
+            <h2> Child : {counter} </h2>
+            <button onClick={changeNumber}> Update Child Counter </button>
+        </>
+    )
+}
+
+export default memo(Child);
+```
+
+### useMemo
+```javascript
+```
