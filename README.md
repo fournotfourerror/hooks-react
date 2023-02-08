@@ -116,4 +116,40 @@ export default memo(Child);
 
 ### useMemo
 ```javascript
+// *With out useMemo*
+import React,{useCallback, useState} from 'react';
+import Child from './Child';
+import '../App.css'
+
+const Parent=()=>{
+    const [counter,setCounter]=useState(0)
+    const [inputValue,setInputValue]=useState("")
+
+   
+
+    const updateCounter=useCallback(()=>{
+        setCounter(counter+1)
+    },[counter])
+
+    const updateInputValue=(e)=>{
+        setInputValue(e.target.value)
+    }
+
+    let output=0;
+    for(let i=0; i < 500000000; i++){
+        output++
+    }
+
+
+    return(
+        <div className="App">
+            <h2> Parent Component : {`${output} - ${counter}`} </h2>
+            <input type="text" value={inputValue} onChange={updateInputValue}/>
+            <button onClick={updateCounter}> Update counter value </button>
+            <Child counter={counter} changeNumber={updateCounter}/>
+        </div>
+    )
+}
+
+export default Parent;
 ```
