@@ -220,3 +220,24 @@ const Parent=()=>{
 
 export default Parent;
 ```
+
+#### Lazy loading for performance
+```react
+  import { useState } from "react"
+import { lazy, Suspense } from "react"
+
+export default function Parent(){
+    const [counter,setCounter]=useState<any>(0)
+
+    const LazyComponent:any=lazy(()=> import("./Child"))
+    return(
+        <>
+            <button onClick={()=>setCounter(counter+1)}> Increment </button><h2> {counter} </h2> <button onClick={()=>setCounter(counter-1)}> Decrement </button>
+            <Suspense fallback={<div>  Loading Component... </div>} >
+            {counter == 5 && <LazyComponent />}   
+            </Suspense>
+        </>
+        
+    )
+}
+```
