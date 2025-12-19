@@ -23,6 +23,31 @@ export default function Login(){
         </>
     )
 }
+
+// useRef with onChange event handler
+import { useRef } from "react";
+
+const Hanu=()=>{
+    const formData=useRef<any>({name:"Naveen", email:"naveen@gmail.com"})
+
+    const submitForm=()=>{
+        console.log(formData.current.name)
+        console.log(formData.current)
+
+    }
+
+    console.log(formData.current.name)
+
+    return(
+        <form>
+            <input name="name" placeholder="Name" defaultValue={formData.current.name} onChange={(e:any)=> formData.current.name=e.target.value}/>
+            <input name="email" placeholder="E-mail" ref={(e:any)=>formData.current.email=e?.value} />
+            <button type="button" onClick={submitForm}> Register </button>
+        </form>
+    )
+}
+
+export default Hanu;
 ```
 
 ## Memorization
